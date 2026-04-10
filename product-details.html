@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm – LaptopX</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">💻 LaptopX</a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav ms-3">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="products.html">Sản phẩm</a>
+            </li>
+          </ul>
+
+          <div class="ms-auto d-flex align-items-center gap-3">
+            <span class="text-light">
+              <i class="bi bi-telephone-fill"></i> 999999999
+            </span>
+            <a href="cart.html" class="btn btn-warning position-relative">
+              🛒
+              <span id="cart-count" class="badge bg-danger">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="container mt-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a href="products.html">Sản phẩm</a></li>
+          <li class="breadcrumb-item active" id="breadcrumb-name">Chi tiết</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- DETAIL CONTENT -->
+    <div class="container">
+      <div class="detail-wrapper" id="detail-content">
+        <!-- Loaded by JS -->
+        <div class="text-center py-5 text-muted">
+          <div class="spinner-border text-primary mb-3" role="status"></div>
+          <p>Đang tải sản phẩm...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATED PRODUCTS -->
+    <div class="container mb-5" id="related-section" style="display:none">
+      <div class="section-header" style="background:#1565c0;">
+        <h5><i class="bi bi-grid-fill me-2"></i>Sản phẩm liên quan</h5>
+        <a href="products.html">Xem tất cả →</a>
+      </div>
+      <div class="row" id="related-list"></div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      updateCartCount();
+
+      // ──────────────────────────────────────────
+      // Read product id from URL
+      // ──────────────────────────────────────────
+      const params = new URLSearchParams(window.location.search);
+      const productId = parseInt(params.get("id"));
+      const product = products.find((p) => p.id === productId);
+
+      const container = document.getElementById("detail-content");
+
+      if (!product) {
+        container.innerHTML = `
+          <div class="text-center py-5">
+            <i class="bi bi-exclamation-circle text-danger" style="font-size:48px"></i>
+            <h4 class="mt-3 text-danger">Không tìm thấy sản phẩm!</h4>
+            <a href="products.html" class="btn btn-primary mt-3">← Quay lại danh sách</a>
+          </div>`;
+      } else {
+        // Update breadcrumb
+        document.getElementById("breadcrumb-name").textContent = product.name;
+        document.title = product.name + " – LaptopX";
+
+        // Formatted price with dots: e.g. 25.000.000đ
+        const fmtPrice = product.price.toLocaleString("vi-VN") + "đ";
+
+        // Specs mock data based on brand
+        const specMap = {
+          apple:  ["CPU: Apple M2", "RAM: 8 GB", "SSD: 256 GB", "Màn hình: 13.6\" Retina", "Pin: 18 giờ"],
+          asus:   ["CPU: Intel Core i7", "RAM: 16 GB", "SSD: 512 GB", "Màn hình: 15.6\" FHD 144Hz", "GPU: NVIDIA RTX 3060"],
+          lenovo: ["CPU: AMD Ryzen 7", "RAM: 16 GB", "SSD: 512 GB", "Màn hình: 16\" WQXGA 165Hz", "GPU: NVIDIA RTX 3070 Ti"],
+          acer:   ["CPU: Intel Core i7", "RAM: 16 GB", "SSD: 512 GB", "Màn hình: 15.6\" FHD 144Hz", "GPU: NVIDIA RTX 3060 Ti"],
+          msi:    ["CPU: Intel Core i7-12700H", "RAM: 16 GB", "SSD: 1 TB", "Màn hình: 15.6\" FHD 144Hz", "GPU: NVIDIA RTX 3060"],
+        };
+        const specs = specMap[product.brand] || ["Thông tin đang cập nhật..."];
+
+        const specItems = specs
+          .map((s) => `<li><i class="bi bi-check-circle-fill me-2"></i>${s}</li>`)
+          .join("");
+
+        container.innerHTML = `
+          <div class="row g-5 align-items-start">
+            <!-- Image -->
+            <div class="col-md-5">
+              <img src="${product.image.replace('../','')}"
+                   onerror="this.src='image/placeholder.png'"
+                   class="detail-img" alt="${product.name}">
+            </div>
+
+            <!-- Info -->
+            <div class="col-md-7">
+              <p class="detail-brand">${product.brand}</p>
+              <h1 class="detail-title">${product.name}</h1>
+              <span class="detail-status"><i class="bi bi-patch-check-fill me-1"></i>New 100%</span>
+
+              <div class="detail-price">${fmtPrice}</div>
+
+              <!-- Specs -->
+              <ul class="detail-specs">
+                ${specItems}
+              </ul>
+
+              <!-- Quantity -->
+              <div class="d-flex align-items-center gap-3 mb-4">
+                <label class="fw-semibold">Số lượng:</label>
+                <div class="input-group" style="width:130px">
+                  <button class="btn btn-outline-secondary" onclick="changeDetailQty(-1)">−</button>
+                  <input type="number" id="detail-qty" class="form-control text-center" value="1" min="1" style="max-width:50px">
+                  <button class="btn btn-outline-secondary" onclick="changeDetailQty(1)">+</button>
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="d-flex gap-3 flex-wrap">
+                <button onclick="addToCartDetail(${product.id})" class="btn btn-primary px-4 py-2 fw-bold">
+                  <i class="bi bi-cart-plus me-2"></i>Thêm vào giỏ
+                </button>
+                <button onclick="buyNow(${product.id})" class="btn btn-danger px-4 py-2 fw-bold">
+                  <i class="bi bi-lightning-fill me-2"></i>Mua ngay
+                </button>
+                <a href="products.html" class="btn btn-outline-secondary px-4 py-2">
+                  <i class="bi bi-arrow-left me-1"></i>Quay lại
+                </a>
+              </div>
+
+              <!-- Guarantee badges -->
+              <div class="d-flex gap-3 mt-4 flex-wrap">
+                <span class="badge bg-light text-dark border p-2"><i class="bi bi-shield-check text-success me-1"></i>Bảo hành 12 tháng</span>
+                <span class="badge bg-light text-dark border p-2"><i class="bi bi-truck text-primary me-1"></i>Giao hàng miễn phí</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // ── Related products ──────────────────────
+        const related = products
+          .filter((p) => p.brand === product.brand && p.id !== product.id)
+          .slice(0, 4);
+
+        if (related.length > 0) {
+          document.getElementById("related-section").style.display = "block";
+          document.getElementById("related-list").innerHTML = related
+            .map(
+              (p) => `
+            <div class="col-6 col-md-3">
+              <div class="card-wrapper mb-4">
+                <div class="card">
+                  <div class="card-img-wrapper">
+                    <img src="${p.image.replace('../','')}">
+                    <div class="card-overlay">
+                      <a href="product-details.html?id=${p.id}" class="btn-view">
+                        <i class="bi bi-eye"></i> Xem chi tiết
+                      </a>
+                    </div>
+                  </div>
+                  <div class="card-body text-center">
+                    <h5>${p.name}</h5>
+                    <p class="text-primary fw-bold small mb-1">New 100%</p>
+                    <p>${p.price.toLocaleString()}đ</p>
+                    <button onclick="addToCart(${p.id})" class="btn btn-primary btn-sm">Thêm vào giỏ</button>
+                  </div>
+                </div>
+              </div>
+            </div>`
+            )
+            .join("");
+        }
+      }
+
+      // ─── Quantity helpers ─────────────────────
+      function changeDetailQty(delta) {
+        const input = document.getElementById("detail-qty");
+        if (!input) return;
+        let val = parseInt(input.value) + delta;
+        if (val < 1) val = 1;
+        input.value = val;
+      }
+
+      function addToCartDetail(id) {
+        const qty = parseInt(document.getElementById("detail-qty").value) || 1;
+        for (let i = 0; i < qty; i++) addToCart(id);
+      }
+
+      function buyNow(id) {
+        addToCartDetail(id);
+        window.location.href = "cart.html";
+      }
+    </script>
+  </body>
+</html>
