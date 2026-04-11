@@ -37,6 +37,8 @@
           </li>
         </ul>
 
+
+
         <!-- RIGHT: PHONE + CART -->
         <div class="ms-auto d-flex align-items-center gap-3">
           <span class="text-light">
@@ -52,17 +54,50 @@
     </div>
   </nav>
 
-  <!-- ===== BANNER ===== -->
+  <!-- ===== BANNER GIỚI THIỆU ===== -->
   <div class="container mt-4">
-    <div class="p-5 bg-light rounded shadow-sm text-center">
-      <h1 class="fw-bold">Chào mừng đến LaptopX</h1>
-      <p class="text-muted">Mua laptop xịn giá sinh viên 😎</p>
+    <div class="row g-3">
+      <!-- Main Carousel (Left) -->
+      <div class="col-lg-8 col-md-12">
+        <div id="introCarousel" class="carousel slide shadow-sm rounded-4 overflow-hidden" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a href="product-details.html?id=9">
+                <img src="image/macbookneobanner.png" class="d-block w-100 banner-hero" alt="Macbook Neo">
+              </a>
+            </div>
+            <div class="carousel-item">
+              <a href="product-details.html?id=7">
+                <img src="image/vivobookbanner.png" class="d-block w-100 banner-hero" alt="Vivobook">
+              </a>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#introCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#introCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Side Promotions (Right) -->
+      <div class="col-lg-4 d-none d-lg-flex flex-column gap-3">
+        <a href="guide.html" class="banner-sub-wrapper shadow-sm rounded-4 overflow-hidden flex-fill">
+          <img src="image/huongdanmuahang.png" class="w-100 h-100 object-fit-cover banner-sub" alt="Hướng dẫn mua hàng">
+        </a>
+        <a href="payment.html" class="banner-sub-wrapper shadow-sm rounded-4 overflow-hidden flex-fill">
+          <img src="image/hinhthucthanhtoan.png" class="w-100 h-100 object-fit-cover banner-sub" alt="Thanh toán">
+        </a>
+      </div>
     </div>
   </div>
 
   <!-- ===== SAN PHAM NOI BAT ===== -->
   <div class="container mt-5">
-    <h3 class="text-center fw-bold mb-4">Sản phẩm nổi bật</h3>
+    <div class="section-header bg-warning">
+      <h5 class="text-dark"><i class="bi bi-star-fill me-2"></i>Sản phẩm nổi bật</h5>
+    </div>
 
     <!-- wrapper de hover de hien mui ten -->
     <div class="position-relative px-4">
@@ -83,30 +118,46 @@
     </div>
   </div>
   <!-- ===== END SAN PHAM NOI BAT ===== -->
+  <!-- ===== duplicate logo ===== -->
+  <div class="brand-slider">
+    <div class="brand-track">
+      <a href="products.html?brand=apple"><img src="image/logoapple.png" alt="Apple" /></a>
+      <a href="products.html?brand=asus"><img src="image/asuslogo.png" alt="Asus" /></a>
+      <a href="products.html?brand=lenovo"><img src="image/lenovologo.png" alt="Lenovo" /></a>
+      <a href="products.html?brand=msi"><img src="image/msilogo.png" alt="MSI" /></a>
+      <a href="products.html?brand=acer"><img src="image/acerlogo.png" alt="Acer" /></a>
+
+      <!-- duplicate để chạy mượt -->
+      <a href="products.html?brand=apple"><img src="image/logoapple.png" alt="Apple" /></a>
+      <a href="products.html?brand=asus"><img src="image/asuslogo.png" alt="Asus" /></a>
+      <a href="products.html?brand=lenovo"><img src="image/lenovologo.png" alt="Lenovo" /></a>
+      <a href="products.html?brand=msi"><img src="image/msilogo.png" alt="MSI" /></a>
+      <a href="products.html?brand=acer"><img src="image/acerlogo.png" alt="Acer" /></a>
+    </div>
+  </div>
   <!-- == HỌC TẬP - VĂN PHÒNG == -->
   <section class="container mt-5" id="hoc-tap-van-phong">
-    <div class="d-flex align-items-center bg-primary text-white p-2 mb-3 rounded-1">
-      <h5 class="m-0 fw-bold px-3 text-uppercase small">
-        Học tập - Văn phòng
-      </h5>
+    <div class="section-header bg-primary">
+      <h5><i class="bi bi-laptop me-2"></i>Học tập - Văn phòng</h5>
+      <a href="products.html?category=office">Xem tất cả →</a>
     </div>
     <div class="row g-3 product-container"></div>
   </section>
 
   <!-- == GAMING == -->
   <section class="container mt-5" id="gaming">
-    <div class="d-flex align-items-center bg-danger text-white p-2 mb-3 rounded-1">
-      <h5 class="m-0 fw-bold px-3 text-uppercase small">Laptop Gaming</h5>
+    <div class="section-header bg-danger">
+      <h5><i class="bi bi-controller me-2"></i>Laptop Gaming</h5>
+      <a href="products.html?category=gaming">Xem tất cả →</a>
     </div>
     <div class="row g-3 product-container"></div>
   </section>
 
   <!-- == MỎNG NHẸ - CAO CẤP == -->
   <section class="container mt-5 mb-5" id="cao-cap">
-    <div class="d-flex align-items-center bg-dark text-white p-2 mb-3 rounded-1">
-      <h5 class="m-0 fw-bold px-3 text-uppercase small">
-        Mỏng nhẹ - Cao cấp
-      </h5>
+    <div class="section-header bg-dark">
+      <h5><i class="bi bi-gem me-2"></i>Mỏng nhẹ - Cao cấp</h5>
+      <a href="products.html?category=premium">Xem tất cả →</a>
     </div>
     <div class="row g-3 product-container"></div>
   </section>
@@ -118,8 +169,12 @@
       <div class="row mb-5">
         <!-- Cột 1: Thông tin công ty & MXH -->
         <div class="col-md-4">
-          <h6 class="fw-bold mb-3 text-uppercase">Công ty TNHH LaptopX Việt Nam</h6>
-          <p class="small mb-2">Địa chỉ: Số 18, ngõ 121, Thái Hà, Đống Đa, Hà Nội</p>
+          <h6 class="fw-bold mb-3 text-uppercase">
+            Công ty TNHH LaptopX Việt Nam
+          </h6>
+          <p class="small mb-2">
+            Địa chỉ: Số 18, ngõ 121, Thái Hà, Đống Đa, Hà Nội
+          </p>
           <p class="small mb-2">Hotline: 999999999</p>
           <p class="small mb-3">Email: laptopx@gmail.com</p>
 
@@ -146,12 +201,16 @@
           <h6 class="fw-bold mb-3 text-uppercase">Chính sách công ty</h6>
           <ul class="list-unstyled small">
             <li class="mb-2"><a href="#">Chính sách chất lượng</a></li>
-            <li class="mb-2"><a href="#">Chính sách bảo hành - bảo trì</a></li>
+            <li class="mb-2">
+              <a href="#">Chính sách bảo hành - bảo trì</a>
+            </li>
             <li class="mb-2"><a href="#">Chính sách đổi trả</a></li>
             <li class="mb-2"><a href="#">Chính sách bảo mật thông tin</a></li>
             <li class="mb-2"><a href="#">Chính sách vận chuyển</a></li>
             <li class="mb-2"><a href="#">Chính sách vệ sinh Laptop</a></li>
-            <li class="mb-2"><a href="#">Hướng dẫn mua hàng - thanh toán</a></li>
+            <li class="mb-2">
+              <a href="#">Hướng dẫn mua hàng - thanh toán</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -160,45 +219,74 @@
       <div class="row pt-4 border-top">
         <!-- Hà Nội 1 -->
         <div class="col-md-4 mb-4">
-          <h6 class="fw-bold small mb-3 text-uppercase">Hệ thống cửa hàng LaptopX</h6>
+          <h6 class="fw-bold small mb-3 text-uppercase">
+            Hệ thống cửa hàng LaptopX
+          </h6>
           <div class="small">
             <p class="fw-bold mb-1">LaptopX cơ sở Thái Hà</p>
             <p class="mb-1">Số 18, ngõ 121, Thái Hà, Đống Đa, Hà Nội</p>
             <p class="mb-1">Hotline: 999999999</p>
             <p class="mb-1">Bán hàng: Từ 8h30 - 21h30</p>
             <p class="mb-2">Kỹ thuật: Từ 8h30 - 12h & 13h30 - 17h30</p>
-            <a href="#" class="text-primary text-decoration-none">Xem chỉ đường</a>
           </div>
         </div>
 
         <!-- Hà Nội 2 -->
         <div class="col-md-4 mb-4">
-          <h6 class="fw-bold small mb-3 text-uppercase">Hệ thống cửa hàng LaptopX</h6>
+          <h6 class="fw-bold small mb-3 text-uppercase">
+            Hệ thống cửa hàng LaptopX
+          </h6>
           <div class="small">
             <p class="fw-bold mb-1">LaptopX cơ sở Hà Đông</p>
             <p class="mb-1">Số 56 Trần Phú, Hà Đông, Hà Nội</p>
             <p class="mb-1">Hotline: 999999999</p>
             <p class="mb-1">Bán hàng: Từ 8h30 - 21h30</p>
             <p class="mb-2">Kỹ thuật: Từ 8h30 - 12h & 13h30 - 17h30</p>
-            <a href="#" class="text-primary text-decoration-none">Xem chỉ đường</a>
           </div>
         </div>
 
         <!-- TP.HCM (Thêm vào cho đủ bộ) -->
         <div class="col-md-4 mb-4">
-          <h6 class="fw-bold small mb-3 text-uppercase">Hệ thống cửa hàng LaptopX</h6>
+          <h6 class="fw-bold small mb-3 text-uppercase">
+            Hệ thống cửa hàng LaptopX
+          </h6>
           <div class="small">
             <p class="fw-bold mb-1">LaptopX cơ sở Quận 10</p>
             <p class="mb-1">285 Cách Mạng Tháng 8, Quận 10, TP.HCM</p>
             <p class="mb-1">Hotline: 999999999</p>
             <p class="mb-1">Bán hàng: Từ 9h00 - 21h30</p>
             <p class="mb-2">Kỹ thuật: Từ 9h00 - 12h & 13h30 - 17h30</p>
-            <a href="#" class="text-primary text-decoration-none">Xem chỉ đường</a>
           </div>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- ===== SOCIAL CONTACT BAR ===== -->
+  <div class="social-contact-bar">
+    <a href="tel:999999999" class="contact-item phone" title="Gọi hotline">
+      <i class="bi bi-telephone-fill"></i>
+    </a>
+    <a href="#" class="contact-item chat" title="Chat Zalo">
+      <i class="bi bi-chat-dots-fill"></i>
+    </a>
+    <a href="#" class="contact-item telegram" title="Telegram">
+      <i class="bi bi-telegram"></i>
+    </a>
+    <a href="#" class="contact-item messenger" title="Messenger">
+      <i class="bi bi-messenger"></i>
+    </a>
+  </div>
+
+  <!-- ===== NAVIGATION UTILS ===== -->
+  <div class="nav-utils-bar">
+    <div onclick="goBack()" class="util-item back-btn" title="Quay lại">
+      <i class="bi bi-arrow-left"></i>
+    </div>
+    <div onclick="scrollToTop()" class="util-item scroll-top-btn" title="Lên đầu trang">
+      <i class="bi bi-chevron-up"></i>
+    </div>
+  </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

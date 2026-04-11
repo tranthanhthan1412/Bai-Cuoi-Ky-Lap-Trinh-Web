@@ -61,6 +61,8 @@ body {
   width: 100%;
 }
 
+
+
 /* ===== PHONE ===== */
 .navbar span {
   font-size: 14px;
@@ -83,10 +85,40 @@ body {
   font-size: 11px;
 }
 
-/* ===== BANNER ===== */
-.bg-light {
-  background: linear-gradient(135deg, #ffffff, #e9ecef) !important;
-  border-radius: 15px;
+/* ===== BANNER REFINED ===== */
+.banner-hero {
+  height: 420px;
+  object-fit: cover;
+  transition: 0.5s ease-in-out;
+}
+
+.banner-sub-wrapper {
+  position: relative;
+  height: 202px; /* (420 - 16 gap) / 2 */
+  cursor: pointer;
+}
+
+.banner-sub {
+  transition: 0.5s ease;
+}
+
+.banner-sub-wrapper:hover .banner-sub {
+  transform: scale(1.05);
+}
+
+#introCarousel:hover .banner-hero {
+  transform: scale(1.02);
+}
+
+@media (max-width: 991px) {
+  .banner-hero {
+    height: 300px;
+  }
+}
+@media (max-width: 576px) {
+  .banner-hero {
+    height: 200px;
+  }
 }
 
 /* ===== CARD ===== */
@@ -409,8 +441,6 @@ body {
   margin-bottom: 5px;
   color: #555;
 }
-
-
 /* Box Hotline màu xanh */
 .footer-hotline {
   background: linear-gradient(135deg, #0d6efd, #004fb1);
@@ -506,8 +536,204 @@ body {
   }
 }
 
+/* ===== BRAND SLIDER ===== */
+.brand-slider {
+  background: #fff;
+  padding: 60px 0;
+  overflow: hidden;
+  margin: 40px 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.brand-track {
+  display: flex;
+  width: calc(250px * 10);
+  animation: scroll 30s linear infinite;
+}
+
+.brand-track img {
+  width: 150px;
+  height: 60px;
+  object-fit: contain;
+  margin: 0 50px;
+  filter: grayscale(100%);
+  opacity: 0.5;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.brand-track img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-250px * 5)); }
+}
+
+/* ===== SOCIAL CONTACT BAR ===== */
+.social-contact-bar {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.contact-item {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 22px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact-item:hover {
+  transform: scale(1.15) translateX(-5px);
+  color: #fff;
+}
+
+/* Brand Colors */
+.contact-item.phone {
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+}
+.contact-item.chat {
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+}
+.contact-item.telegram {
+  background: linear-gradient(135deg, #0088cc, #006699);
+}
+.contact-item.messenger {
+  background: linear-gradient(135deg, #0078ff, #00c6ff);
+}
+
+/* Tooltip Effect */
+.contact-item::before {
+  content: attr(title);
+  position: absolute;
+  right: 60px;
+  background: #333;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.contact-item:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 576px) {
+  .social-contact-bar {
+    right: 10px;
+    gap: 8px;
+  }
+  .contact-item {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}
+
+/* ===== NAVIGATION UTILS (LEFT SIDE) ===== */
+.nav-utils-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+}
+
+.util-item {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 22px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.util-item.back-btn {
+  background: linear-gradient(135deg, #6c757d, #343a40);
+}
+
+.util-item.scroll-top-btn {
+  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+
+.util-item.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.util-item:hover {
+  transform: scale(1.15) translateX(5px);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 576px) {
+  .nav-utils-bar {
+    left: 10px;
+    gap: 8px;
+  }
+  .util-item {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}
+
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
+  .brand-track {
+    width: calc(150px * 10);
+  }
+
+  .brand-track img {
+    width: 100px;
+    height: 40px;
+    margin: 0 25px;
+  }
+  
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-150px * 5)); }
+  }
 
   .carousel-control-prev,
   .carousel-control-next {

@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hình thức thanh toán - LaptopX</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .payment-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .payment-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #0d6efd;
+        }
+
+        .note-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <!-- LOGO -->
+            <a class="navbar-brand fw-bold" href="index.html"> 💻 LaptopX </a>
+
+            <!-- BUTTON MOBILE -->
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- MENU -->
+            <div class="collapse navbar-collapse" id="menu">
+                <!-- LEFT: MENU -->
+                <ul class="navbar-nav ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Sản phẩm</a>
+                    </li>
+                </ul>
+
+
+
+                <!-- RIGHT: PHONE + CART -->
+                <div class="ms-auto d-flex align-items-center gap-3">
+                    <span class="text-light">
+                        <i class="bi bi-telephone-fill"></i> 999999999
+                    </span>
+
+                    <a href="cart.html" class="btn btn-warning position-relative">
+                        🛒
+                        <span id="cart-count" class="badge bg-danger">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Hình thức thanh toán</h2>
+
+        <div class="row g-4">
+            <!-- COD -->
+            <div class="col-md-4">
+                <div class="payment-card shadow-sm">
+                    <div class="payment-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <h5>Thanh toán khi nhận hàng (COD)</h5>
+                    <p>Thanh toán tiền mặt trực tiếp khi nhận sản phẩm.</p>
+                </div>
+            </div>
+
+            <!-- BANK -->
+            <div class="col-md-4">
+                <div class="payment-card shadow-sm">
+                    <div class="payment-icon">
+                        <i class="bi bi-bank"></i>
+                    </div>
+                    <h5>Chuyển khoản ngân hàng</h5>
+                    <p>Chuyển khoản qua tài khoản ngân hàng của cửa hàng.</p>
+                </div>
+            </div>
+
+            <!-- CARD -->
+            <div class="col-md-4">
+                <div class="payment-card shadow-sm">
+                    <div class="payment-icon">
+                        <i class="bi bi-credit-card"></i>
+                    </div>
+                    <h5>Thanh toán thẻ</h5>
+                    <p>Hỗ trợ thẻ ATM, Visa, Mastercard.</p>
+                </div>
+            </div>
+
+            <!-- E-WALLET -->
+            <div class="col-md-4">
+                <div class="payment-card shadow-sm">
+                    <div class="payment-icon">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                    <h5>Ví điện tử</h5>
+                    <p>Thanh toán qua Momo, ZaloPay, VNPay.</p>
+                </div>
+            </div>
+
+            <!-- QR -->
+            <div class="col-md-4">
+                <div class="payment-card shadow-sm">
+                    <div class="payment-icon">
+                        <i class="bi bi-qr-code-scan"></i>
+                    </div>
+                    <h5>Quét mã QR</h5>
+                    <p>Thanh toán nhanh bằng QR Code.</p>
+                </div>
+            </div>
+
+            <!-- INSTALLMENT -->
+            <div class="col-md-4">
+                <div class="payment-card shadow-sm">
+                    <div class="payment-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h5>Trả góp</h5>
+                    <p>Hỗ trợ trả góp 0% qua thẻ tín dụng.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTE -->
+        <div class="note-box shadow-sm mb-5">
+            <h5>Lưu ý:</h5>
+            <ul>
+                <li>Kiểm tra kỹ thông tin trước khi thanh toán</li>
+                <li>Giữ lại hóa đơn sau khi thanh toán</li>
+                <li>Liên hệ 0999999999 nếu cần hỗ trợ</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-white pt-5 pb-4 border-top mt-5 text-dark footer-custom">
+        <div class="container">
+            <!-- HÀNG 1: 3 CỘT THÔNG TIN CHÍNH -->
+            <div class="row mb-5">
+                <!-- Cột 1: Thông tin công ty & MXH -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold mb-3 text-uppercase">
+                        Công ty TNHH LaptopX Việt Nam
+                    </h6>
+                    <p class="small mb-2">
+                        Địa chỉ: Số 18, ngõ 121, Thái Hà, Đống Đa, Hà Nội
+                    </p>
+                    <p class="small mb-2">Hotline: 999999999</p>
+                    <p class="small mb-3">Email: laptopx@gmail.com</p>
+
+                    <!-- Social Icons h -->
+                    <div class="d-flex gap-2 social-icons">
+                        <a href="#" class="bg-primary text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="bg-danger text-white"><i class="bi bi-youtube"></i></a>
+                        <a href="#" class="bg-dark text-white"><i class="bi bi-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Cột 2: Thông tin chung -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold mb-3 text-uppercase">Thông tin công ty</h6>
+                    <ul class="list-unstyled small mb-4">
+                        <li class="mb-2"><a href="#">Giới thiệu công ty</a></li>
+                        <li class="mb-2"><a href="#">Tuyển dụng</a></li>
+                        <li class="mb-2"><a href="#">Gửi góp ý, khiếu nại</a></li>
+                    </ul>
+                </div>
+
+                <!-- Cột 3: Chính sách -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold mb-3 text-uppercase">Chính sách công ty</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#">Chính sách chất lượng</a></li>
+                        <li class="mb-2">
+                            <a href="#">Chính sách bảo hành - bảo trì</a>
+                        </li>
+                        <li class="mb-2"><a href="#">Chính sách đổi trả</a></li>
+                        <li class="mb-2"><a href="#">Chính sách bảo mật thông tin</a></li>
+                        <li class="mb-2"><a href="#">Chính sách vận chuyển</a></li>
+                        <li class="mb-2"><a href="#">Chính sách vệ sinh Laptop</a></li>
+                        <li class="mb-2">
+                            <a href="#">Hướng dẫn mua hàng - thanh toán</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- HÀNG 2: HỆ THỐNG CỬA HÀNG -->
+            <div class="row pt-4 border-top">
+                <!-- Hà Nội 1 -->
+                <div class="col-md-4 mb-4">
+                    <h6 class="fw-bold small mb-3 text-uppercase">
+                        Hệ thống cửa hàng LaptopX
+                    </h6>
+                    <div class="small">
+                        <p class="fw-bold mb-1">LaptopX cơ sở Thái Hà</p>
+                        <p class="mb-1">Số 18, ngõ 121, Thái Hà, Đống Đa, Hà Nội</p>
+                        <p class="mb-1">Hotline: 999999999</p>
+                        <p class="mb-1">Bán hàng: Từ 8h30 - 21h30</p>
+                        <p class="mb-2">Kỹ thuật: Từ 8h30 - 12h & 13h30 - 17h30</p>
+                    </div>
+                </div>
+
+                <!-- Hà Nội 2 -->
+                <div class="col-md-4 mb-4">
+                    <h6 class="fw-bold small mb-3 text-uppercase">
+                        Hệ thống cửa hàng LaptopX
+                    </h6>
+                    <div class="small">
+                        <p class="fw-bold mb-1">LaptopX cơ sở Hà Đông</p>
+                        <p class="mb-1">Số 56 Trần Phú, Hà Đông, Hà Nội</p>
+                        <p class="mb-1">Hotline: 999999999</p>
+                        <p class="mb-1">Bán hàng: Từ 8h30 - 21h30</p>
+                        <p class="mb-2">Kỹ thuật: Từ 8h30 - 12h & 13h30 - 17h30</p>
+                    </div>
+                </div>
+
+                <!-- TP.HCM (Thêm vào cho đủ bộ) -->
+                <div class="col-md-4 mb-4">
+                    <h6 class="fw-bold small mb-3 text-uppercase">
+                        Hệ thống cửa hàng LaptopX
+                    </h6>
+                    <div class="small">
+                        <p class="fw-bold mb-1">LaptopX cơ sở Quận 10</p>
+                        <p class="mb-1">285 Cách Mạng Tháng 8, Quận 10, TP.HCM</p>
+                        <p class="mb-1">Hotline: 999999999</p>
+                        <p class="mb-1">Bán hàng: Từ 9h00 - 21h30</p>
+                        <p class="mb-2">Kỹ thuật: Từ 9h00 - 12h & 13h30 - 17h30</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SOCIAL CONTACT BAR ===== -->
+    <div class="social-contact-bar">
+        <a href="tel:999999999" class="contact-item phone" title="Gọi hotline">
+            <i class="bi bi-telephone-fill"></i>
+        </a>
+        <a href="#" class="contact-item chat" title="Chat Zalo">
+            <i class="bi bi-chat-dots-fill"></i>
+        </a>
+        <a href="#" class="contact-item telegram" title="Telegram">
+            <i class="bi bi-telegram"></i>
+        </a>
+        <a href="#" class="contact-item messenger" title="Messenger">
+            <i class="bi bi-messenger"></i>
+        </a>
+    </div>
+
+    <!-- ===== NAVIGATION UTILS ===== -->
+    <div class="nav-utils-bar">
+        <div onclick="goBack()" class="util-item back-btn" title="Quay lại">
+            <i class="bi bi-arrow-left"></i>
+        </div>
+        <div onclick="scrollToTop()" class="util-item scroll-top-btn" title="Lên đầu trang">
+            <i class="bi bi-chevron-up"></i>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS cua ban -->
+    <script src="js/main.js"></script>
+    <script>
+        updateCartCount();
+    </script>
+</body>
+
+</html>

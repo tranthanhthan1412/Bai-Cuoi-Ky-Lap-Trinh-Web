@@ -4,85 +4,97 @@ const products = [
     id: 1,
     name: "MacBook Air M2",
     price: 25000000,
-    image: "../image/mac-air-m2-13-xanh-new-1-650x650.png",
+    image: "image/mac-air-m2-13-xanh-new-1-650x650.png",
     brand: "apple",
+    category: "office",
   },
   {
     id: 2,
     name: "Lenovo Legion 5 Pro",
     price: 39000000,
-    image: "../image/lenovo legion.png",
+    image: "image/lenovo legion.png",
     brand: "lenovo",
+    category: "gaming",
   },
   {
     id: 3,
     name: "Asus ROG",
     price: 30000000,
-    image: "../image/asusrog.png",
+    image: "image/asusrog.png",
     brand: "asus",
+    category: "gaming",
   },
   {
     id: 4,
     name: "Predator Helios 300",
     price: 27000000,
-    image: "../image/predatorneo14.png",
+    image: "image/predatorneo14.png",
     brand: "acer",
+    category: "gaming",
   },
   {
     id: 5,
     name: "MSI Katana GF66",
     price: 26000000,
-    image: "../image/msikatata.png",
+    image: "image/msikatata.png",
     brand: "msi",
+    category: "gaming",
   },
   {
     id: 6,
     name: "Acer Nitro 5",
     price: 18000000,
-    image: "../image/acernitro5.png",
+    image: "image/acernitro5.png",
     brand: "acer",
+    category: "gaming",
   },
   {
     id: 7,
     name: "Asus Vivobook 15",
     price: 21000000,
-    image: "../image/asusvivobook.png",
+    image: "image/asusvivobook.png",
     brand: "asus",
+    category: "office",
   },
   {
     id: 8,
     name: "Lenovo IdeaPad 3",
     price: 23000000,
-    image: "../image/ideapad3.png",
+    image: "image/ideapad3.png",
     brand: "lenovo",
+    category: "office",
   },
   {
     id: 9,
     name: "MacBook Neo 13",
     price: 14000000,
-    image: "../image/macbookneo13.png",
+    image: "image/macbookneo13.png",
     brand: "apple",
+    category: "office",
   },
   {
     id: 10,
     name: "Alienware m18",
     price: 42000000,
-    image: "../image/alienware18.png",
+    image: "image/alienware18.png",
     brand: "acer",
+    category: "gaming",
   },
   {
     id: 11,
     name: "MSI Prestige 14",
     price: 35000000,
-    image: "../image/msipre14.png",
+    image: "image/msipre14.png",
     brand: "msi",
+    category: "office",
   },
   {
     id: 12,
     name: "Asus Zephyus G14",
     price: 31000000,
-    image: "../image/asuszephyrus.png",
+    image: "image/asuszephyrus.png",
     brand: "asus",
+    category: "gaming",
   },
 ];
 
@@ -217,17 +229,25 @@ function removeItem(index) {
 
 // trạng thái
 let currentBrand = "";
+let currentCategory = "";
 let currentKeyword = "";
 let sortAsc = true;
 
 // ===== RESET FILTER (QUAN TRỌNG) =====
 function resetFilters() {
-  currentBrand = "";
+  const params = new URLSearchParams(window.location.search);
+  currentBrand = params.get("brand") || "";
+  currentCategory = params.get("category") || "";
   currentKeyword = "";
   sortAsc = true;
 
+  // Cập nhật ô Search nếu có
   let searchInput = document.getElementById("search");
   if (searchInput) searchInput.value = "";
+
+  // Cập nhật Dropdown Hãng nếu có
+  let brandSelect = document.querySelector("select.form-select");
+  if (brandSelect) brandSelect.value = currentBrand;
 
   applyFilters();
 }
@@ -274,6 +294,14 @@ function applyFilters() {
     result = result.filter((p) => p.brand === currentBrand);
   }
 
+  if (currentCategory) {
+    if (currentCategory === "premium") {
+      result = result.filter((p) => p.price > 30000000);
+    } else {
+      result = result.filter((p) => p.category === currentCategory);
+    }
+  }
+
   if (currentKeyword) {
     result = result.filter((p) =>
       p.name.toLowerCase().includes(currentKeyword),
@@ -317,69 +345,109 @@ function sortPrice() {
 
 // ================== INIT ==================
 document.addEventListener("DOMContentLoaded", () => {
-  renderProducts(); // trang chủ
+  renderProducts(); // Trang chủ (carousel)
+  renderCategories(); // 3 danh mục sản phẩm (mới)
   updateCartCount();
 
-  // nếu là trang products → reset filter
+  // Kiểm tra URL xem có search query không (?search=...)
+  const params = new URLSearchParams(window.location.search);
+  const searchQuery = params.get("search");
+
+  // Nếu là trang products (danh sách)
   if (document.getElementById("product-list")) {
     resetFilters();
+
+    // Nếu có query từ URL (vẫn giữ logic này cho các trang sản phẩm)
+    if (searchQuery) {
+      currentKeyword = searchQuery.toLowerCase();
+      const pageInput = document.getElementById("search");
+      if (pageInput) pageInput.value = searchQuery;
+
+      applyFilters();
+    }
   }
 
-  // nếu là trang cart → render cart
+  // Nếu là trang cart (giỏ hàng)
   if (document.getElementById("cart-list")) {
     renderCart();
   }
+
+  // Scroll event for scroll to top button
+  window.onscroll = function() {
+    let btn = document.querySelector(".scroll-top-btn");
+    if (btn) {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.classList.add("visible");
+      } else {
+        btn.classList.remove("visible");
+      }
+    }
+  };
 });
 
-// ================== CAC LOAI LAPTOP ==================
-function renderCategories() {
-  // Lọc sản phẩm theo tiêu chí (ví dụ brand hoặc giá)
-  const officeLaptops = products
-    .filter((p) => ["asus", "apple", "lenovo"].includes(p.brand))
-    .slice(0, 4);
-  const gamingLaptops = products
-    .filter((p) => ["acer", "msi"].includes(p.brand))
-    .slice(0, 4);
-  const premiumLaptops = products.filter((p) => p.price > 30000000).slice(0, 4);
+// ... (existing categories, utils logic, etc. stay the same)
 
-  // Hàm tạo HTML cho card giống hình mẫu
-  const createCard = (p) => `
-    <div class="col-6 col-md-3">
-      <div class="card-wrapper">
-        <div class="card h-100 border-0 shadow-sm p-2">
-          <div class="card-img-wrapper">
-            <img src="${p.image}" class="card-img-top p-3" style="height:160px; object-fit:contain">
-            <div class="card-overlay">
-              <a href="product-details.html?id=${p.id}" class="btn-view">
-                <i class="bi bi-eye"></i> Xem chi tiết
-              </a>
-            </div>
-          </div>
-          <div class="card-body p-2 text-center">
-            <h6 class="card-title fw-normal small mb-2" style="height: 40px; overflow: hidden;">${p.name}</h6>
-            <p class="text-primary fw-bold mb-1 small">New 100%</p>
-            <h6 class="text-danger fw-bold">${p.price.toLocaleString()}đ</h6>
-            <button onclick="addToCart(${p.id})" class="btn btn-sm btn-outline-primary w-100 mt-2">Thêm vào giỏ</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Đổ dữ liệu vào HTML (null-check để tránh crash trên trang khác)
-  const officeEl = document.querySelector("#hoc-tap-van-phong .product-container");
-  if (officeEl) officeEl.innerHTML = officeLaptops.map(createCard).join("");
-
-  const gamingEl = document.querySelector("#gaming .product-container");
-  if (gamingEl) gamingEl.innerHTML = gamingLaptops.map(createCard).join("");
-
-  const premiumEl = document.querySelector("#cao-cap .product-container");
-  if (premiumEl) premiumEl.innerHTML = premiumLaptops.map(createCard).join("");
+// ================== UTILS ==================
+function goBack() {
+  window.history.back();
 }
 
-// Gọi hàm này trong DOMContentLoaded
-document.addEventListener("DOMContentLoaded", () => {
-  renderProducts(); // Cho carousel
-  renderCategories(); // Cho 3 danh mục mới
-  updateCartCount();
-});
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ================== CATEGORIES (HOME PAGE) ==================
+function renderCategories() {
+  const categories = [
+    { id: "hoc-tap-van-phong", type: "office" },
+    { id: "gaming", type: "gaming" },
+    { id: "cao-cap", type: "premium" },
+  ];
+
+  categories.forEach((cat) => {
+    let section = document.getElementById(cat.id);
+    if (section) {
+      let container = section.querySelector(".product-container");
+      if (container) {
+        let list = [];
+        if (cat.type === "premium") {
+          list = products.filter((p) => p.price > 30000000).slice(0, 4);
+        } else {
+          list = products.filter((p) => p.category === cat.type).slice(0, 4);
+        }
+
+        let html = "";
+        list.forEach((p) => {
+          html += `
+            <div class="col-md-3">
+              <div class="card-wrapper mb-4">
+                <div class="card shadow-sm">
+                  <div class="card-img-wrapper">
+                    <img src="${p.image}">
+                    <div class="card-overlay">
+                      <a href="product-details.html?id=${p.id}" class="btn-view">
+                        <i class="bi bi-eye"></i> Xem chi tiết
+                      </a>
+                    </div>
+                  </div>
+                  <div class="card-body text-center">
+                    <h5>${p.name}</h5>
+                    <p class="text-primary fw-bold small mb-1">New 100%</p>
+                    <p>${p.price.toLocaleString()}đ</p>
+                    <button onclick="addToCart(${p.id})" class="btn btn-primary btn-sm">
+                      Thêm vào giỏ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      }
+    }
+  });
+}
+
+
+
