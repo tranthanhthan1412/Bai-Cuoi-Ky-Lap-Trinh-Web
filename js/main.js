@@ -114,7 +114,7 @@ function addToCart(id) {
 
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
-  alert("Đã thêm vào giỏ!");
+  showToast("Đã thêm vào giỏ hàng thành công!");
 }
 
 // ===== CART COUNT =====
@@ -390,6 +390,62 @@ document.addEventListener("DOMContentLoaded", () => {
 // ================== UTILS ==================
 function goBack() {
   window.history.back();
+}
+
+/**
+ * Hiển thị thông báo Toast hiện đại
+ * @param {string} message - Nội dung thông báo
+ * @param {string} type - Loại thông báo (mặc định 'success')
+ */
+function showToast(message, type = "success") {
+  // Tạo container nếu chưa có
+  let container = document.getElementById("toast-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "toast-container";
+    document.body.appendChild(container);
+  }
+
+  // Tạo phần tử toast
+  const toast = document.createElement("div");
+  toast.className = `toast-message ${type}`;
+
+  // Icon (Checkmark cho success, Warning cho warning)
+  let icon = '<i class="bi bi-info-lg"></i>';
+  if (type === "success") icon = '<i class="bi bi-check-lg"></i>';
+  if (type === "warning") icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+
+  toast.innerHTML = `
+    <div class="toast-icon">${icon}</div>
+    <div class="toast-content">${message}</div>
+  `;
+
+  // Thêm vào container
+  container.appendChild(toast);
+
+  // Tự động xóa sau 3 giây
+  setTimeout(() => {
+    toast.classList.add("hide");
+    setTimeout(() => {
+      toast.remove();
+    }, 400); // Đợi hiệu ứng fade out
+  }, 3000);
+}
+
+// ===== XỬ LÝ THANH TOÁN =====
+function processCheckout() {
+  showToast("Đang chuyển hướng đến trang thanh toán...", "success");
+  setTimeout(() => {
+    window.location.href = "payment.html";
+  }, 1000);
+}
+
+// ===== XỬ LÝ ĐĂNG NHẬP =====
+function handleLogin() {
+  showToast(
+    "Tính năng đăng nhập đang được bảo trì. Vui lòng thử lại sau!",
+    "warning"
+  );
 }
 
 function scrollToTop() {

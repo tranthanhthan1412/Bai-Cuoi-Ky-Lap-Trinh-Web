@@ -40,6 +40,10 @@
           <span class="text-light">
             <i class="bi bi-telephone-fill"></i> 999999999
           </span>
+          <button onclick="handleLogin()" class="btn btn-outline-light btn-sm ms-2">
+            <i class="bi bi-person-fill me-1"></i>Đăng nhập
+          </button>
+
           <a href="cart.html" class="btn btn-warning position-relative">
             🛒
             <span id="cart-count" class="badge bg-danger">0</span>
@@ -154,7 +158,7 @@
           <div class="row g-5 align-items-start">
             <!-- Image -->
             <div class="col-md-5">
-              <img src="${product.image.replace('../', '')}"
+              <img src="${product.image.replace("../", "")}"
                    onerror="this.src='image/placeholder.png'"
                    class="detail-img" alt="${product.name}">
             </div>
@@ -167,7 +171,7 @@
 
               <div class="detail-price">${fmtPrice}</div>
 
-              <!-- Specs -->
+              <!-- Specs Short -->
               <ul class="detail-specs">
                 ${specItems}
               </ul>
@@ -202,7 +206,67 @@
               </div>
             </div>
           </div>
+
+          <!-- Tabs Section -->
+          <div class="product-tabs-container mt-5">
+            <div class="tab-nav">
+              <div class="tab-item active" onclick="switchTab('tab-features')">Đặc điểm nổi bật</div>
+              <div class="tab-item" onclick="switchTab('tab-specs')">Thông số kỹ thuật</div>
+            </div>
+            <div class="tab-content-wrapper">
+              <!-- Features Tab -->
+              <div id="tab-features" class="tab-pane active">
+                <div class="marketing-desc">
+                  <h5 class="mb-3">Tại sao nên chọn ${product.name}?</h5>
+                  <p>${generateDescription(product.brand)}</p>
+                  <p>Với sự kết hợp hoàn hảo giữa thiết kế và hiệu năng, ${product.name} không chỉ là một chiếc máy tính, mà là một công cụ hỗ trợ đắc lực cho mọi nhu cầu của bạn từ giải trí đến làm việc chuyên nghiệp.</p>
+                </div>
+              </div>
+              <!-- Specs Tab -->
+              <div id="tab-specs" class="tab-pane">
+                <table class="spec-table">
+                  ${generateSpecTable(specs)}
+                </table>
+              </div>
+            </div>
+          </div>
         `;
+
+      // Helper functions for content generation
+      function generateDescription(brand) {
+        const descs = {
+          apple: "Trải nghiệm sức mạnh đỉnh cao với MacBook chip M2. Thiết kế mỏng nhẹ tinh tế, màn hình Retina sống động cùng thời lượng pin lên đến 18 giờ. Đây là sự lựa chọn hoàn hảo cho những người yêu thích sự sang trọng và hiệu năng ổn định.",
+          asus: "Dòng laptop chuyên game và đồ họa với hệ thống tản nhiệt tiên tiến. Trang bị card đồ họa RTX mạnh mẽ, màn hình tần số quét cao mang lại trải nghiệm mượt mà trong từng khung hình. Thiết kế hầm hố, cá tính.",
+          lenovo: "Sự cân bằng hoàn hảo giữa hiệu năng và độ bền. Phù hợp cho cả công việc văn phòng cao cấp lẫn nhu cầu giải trí đa phương tiện. Màn hình độ phân giải cao, bàn phím gõ sướng tay danh tiếng của Lenovo.",
+          acer: "Hiệu năng vượt trội trong tầm giá. Laptop Acer mang đến cấu hình mạnh mẽ, thiết kế hiện đại, trẻ trung. Một người bạn đồng hành tin cậy cho học tập và làm việc cường độ cao.",
+          msi: "Đỉnh cao laptop gaming với DNA của rồng. MSI tập trung tối đa vào hiệu suất phần cứng và khả năng tối ưu hóa phần mềm. Đây là vũ khí lợi hại cho mọi game thủ chuyên nghiệp.",
+        };
+        return descs[brand.toLowerCase()] || "Sản phẩm chính hãng với hiệu năng ổn định, thiết kế bền bỉ, đáp ứng tốt mọi nhu cầu học tập và làm việc.";
+      }
+
+      function generateSpecTable(specs) {
+        return specs.map(s => {
+          const parts = s.split(':');
+          if (parts.length < 2) return `<tr><td colspan="2">${s}</td></tr>`;
+          return `<tr><td>${parts[0].trim()}</td><td>${parts[1].trim()}</td></tr>`;
+        }).join('');
+      }
+
+      // Tab switching logic
+      window.switchTab = function(tabId) {
+        // Update items
+        document.querySelectorAll('.tab-item').forEach(item => {
+          item.classList.remove('active');
+          if (item.getAttribute('onclick').includes(tabId)) {
+            item.classList.add('active');
+          }
+        });
+        // Update panes
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+          pane.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+      };
 
       // ── Related products ──────────────────────
       const related = products
