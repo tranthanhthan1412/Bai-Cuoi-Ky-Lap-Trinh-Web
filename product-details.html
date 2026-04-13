@@ -1,160 +1,212 @@
 <!doctype html>
 <html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chi tiết sản phẩm – LaptopX</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chi tiết sản phẩm – LaptopX</title>
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
-</head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg premium-nav">
+      <div class="container">
+        <!-- LEFT: LOGO -->
+        <a class="navbar-brand" href="index.html">
+          <i class="bi bi-laptop"></i> LaptopX
+        </a>
 
-<body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- BUTTON MOBILE -->
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- CENTER + RIGHT -->
+        <div class="collapse navbar-collapse" id="menu">
+          <!-- CENTER: MENU -->
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="products.html">Sản phẩm</a>
+            </li>
+          </ul>
+
+          <!-- RIGHT: ACTIONS -->
+          <div class="header-actions">
+            <a href="tel:999999999" class="nav-phone d-none d-lg-flex">
+              <i class="bi bi-telephone-fill"></i> 999999999
+            </a>
+
+            <button onclick="handleLogin()" class="btn-login">
+              <i class="bi bi-person-fill"></i> Đăng nhập
+            </button>
+
+            <a href="cart.html" class="btn-cart">
+              <i class="bi bi-cart3"></i>
+              <span id="cart-count" class="badge">0</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="container mt-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a href="products.html">Sản phẩm</a></li>
+          <li class="breadcrumb-item active" id="breadcrumb-name">Chi tiết</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- DETAIL CONTENT -->
     <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">💻 LaptopX</a>
-
-      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav ms-3">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Trang chủ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="products.html">Sản phẩm</a>
-          </li>
-        </ul>
-
-
-
-        <div class="ms-auto d-flex align-items-center gap-3">
-          <span class="text-light">
-            <i class="bi bi-telephone-fill"></i> 999999999
-          </span>
-          <button onclick="handleLogin()" class="btn btn-outline-light btn-sm ms-2">
-            <i class="bi bi-person-fill me-1"></i>Đăng nhập
-          </button>
-
-          <a href="cart.html" class="btn btn-warning position-relative">
-            🛒
-            <span id="cart-count" class="badge bg-danger">0</span>
-          </a>
+      <div class="detail-wrapper" id="detail-content">
+        <!-- Loaded by JS -->
+        <div class="text-center py-5 text-muted">
+          <div class="spinner-border text-primary mb-3" role="status"></div>
+          <p>Đang tải sản phẩm...</p>
         </div>
       </div>
     </div>
-  </nav>
 
-  <!-- BREADCRUMB -->
-  <div class="container mt-3">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-        <li class="breadcrumb-item"><a href="products.html">Sản phẩm</a></li>
-        <li class="breadcrumb-item active" id="breadcrumb-name">Chi tiết</li>
-      </ol>
-    </nav>
-  </div>
+    <!-- RELATED PRODUCTS -->
+    <div class="container mb-5" id="related-section" style="display: none">
+      <div class="section-header" style="background: #1565c0">
+        <h5><i class="bi bi-grid-fill me-2"></i>Sản phẩm liên quan</h5>
+        <a href="products.html" id="view-all-related">Xem tất cả →</a>
+      </div>
+      <div class="row" id="related-list"></div>
+    </div>
 
-  <!-- DETAIL CONTENT -->
-  <div class="container">
-    <div class="detail-wrapper" id="detail-content">
-      <!-- Loaded by JS -->
-      <div class="text-center py-5 text-muted">
-        <div class="spinner-border text-primary mb-3" role="status"></div>
-        <p>Đang tải sản phẩm...</p>
+    <!-- ===== SOCIAL CONTACT BAR ===== -->
+    <div class="social-contact-bar">
+      <a href="tel:999999999" class="contact-item phone" title="Gọi hotline">
+        <i class="bi bi-telephone-fill"></i>
+      </a>
+      <a href="#" class="contact-item chat" title="Chat Zalo">
+        <i class="bi bi-chat-dots-fill"></i>
+      </a>
+      <a href="#" class="contact-item telegram" title="Telegram">
+        <i class="bi bi-telegram"></i>
+      </a>
+      <a href="#" class="contact-item messenger" title="Messenger">
+        <i class="bi bi-messenger"></i>
+      </a>
+    </div>
+
+    <!-- ===== NAVIGATION UTILS ===== -->
+    <div class="nav-utils-bar">
+      <div onclick="goBack()" class="util-item back-btn" title="Quay lại">
+        <i class="bi bi-arrow-left"></i>
+      </div>
+      <div
+        onclick="scrollToTop()"
+        class="util-item scroll-top-btn"
+        title="Lên đầu trang"
+      >
+        <i class="bi bi-chevron-up"></i>
       </div>
     </div>
-  </div>
 
-  <!-- RELATED PRODUCTS -->
-  <div class="container mb-5" id="related-section" style="display:none">
-    <div class="section-header" style="background:#1565c0;">
-      <h5><i class="bi bi-grid-fill me-2"></i>Sản phẩm liên quan</h5>
-      <a href="products.html" id="view-all-related">Xem tất cả →</a>
-    </div>
-    <div class="row" id="related-list"></div>
-  </div>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      updateCartCount();
 
-  <!-- ===== SOCIAL CONTACT BAR ===== -->
-  <div class="social-contact-bar">
-    <a href="tel:999999999" class="contact-item phone" title="Gọi hotline">
-      <i class="bi bi-telephone-fill"></i>
-    </a>
-    <a href="#" class="contact-item chat" title="Chat Zalo">
-      <i class="bi bi-chat-dots-fill"></i>
-    </a>
-    <a href="#" class="contact-item telegram" title="Telegram">
-      <i class="bi bi-telegram"></i>
-    </a>
-    <a href="#" class="contact-item messenger" title="Messenger">
-      <i class="bi bi-messenger"></i>
-    </a>
-  </div>
+      // ──────────────────────────────────────────
+      // Read product id from URL
+      // ──────────────────────────────────────────
+      const params = new URLSearchParams(window.location.search);
+      const productId = parseInt(params.get("id"));
+      const product = products.find((p) => p.id === productId);
 
-  <!-- ===== NAVIGATION UTILS ===== -->
-  <div class="nav-utils-bar">
-    <div onclick="goBack()" class="util-item back-btn" title="Quay lại">
-      <i class="bi bi-arrow-left"></i>
-    </div>
-    <div onclick="scrollToTop()" class="util-item scroll-top-btn" title="Lên đầu trang">
-      <i class="bi bi-chevron-up"></i>
-    </div>
-  </div>
+      const container = document.getElementById("detail-content");
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-  <script>
-    updateCartCount();
-
-    // ──────────────────────────────────────────
-    // Read product id from URL
-    // ──────────────────────────────────────────
-    const params = new URLSearchParams(window.location.search);
-    const productId = parseInt(params.get("id"));
-    const product = products.find((p) => p.id === productId);
-
-    const container = document.getElementById("detail-content");
-
-    if (!product) {
-      container.innerHTML = `
+      if (!product) {
+        container.innerHTML = `
           <div class="text-center py-5">
             <i class="bi bi-exclamation-circle text-danger" style="font-size:48px"></i>
             <h4 class="mt-3 text-danger">Không tìm thấy sản phẩm!</h4>
             <a href="products.html" class="btn btn-primary mt-3">← Quay lại danh sách</a>
           </div>`;
-    } else {
-      // Update breadcrumb
-      document.getElementById("breadcrumb-name").textContent = product.name;
-      document.title = product.name + " – LaptopX";
+      } else {
+        // Update breadcrumb
+        document.getElementById("breadcrumb-name").textContent = product.name;
+        document.title = product.name + " – LaptopX";
 
-      // Formatted price with dots: e.g. 25.000.000đ
-      const fmtPrice = product.price.toLocaleString("vi-VN") + "đ";
+        // Formatted price with dots: e.g. 25.000.000đ
+        const fmtPrice = product.price.toLocaleString("vi-VN") + "đ";
 
-      // Specs mock data based on brand
-      const specMap = {
-        apple: ["CPU: Apple M2", "RAM: 8 GB", "SSD: 256 GB", "Màn hình: 13.6\" Retina", "Pin: 18 giờ"],
-        asus: ["CPU: Intel Core i7", "RAM: 16 GB", "SSD: 512 GB", "Màn hình: 15.6\" FHD 144Hz", "GPU: NVIDIA RTX 3060"],
-        lenovo: ["CPU: AMD Ryzen 7", "RAM: 16 GB", "SSD: 512 GB", "Màn hình: 16\" WQXGA 165Hz", "GPU: NVIDIA RTX 3070 Ti"],
-        acer: ["CPU: Intel Core i7", "RAM: 16 GB", "SSD: 512 GB", "Màn hình: 15.6\" FHD 144Hz", "GPU: NVIDIA RTX 3060 Ti"],
-        msi: ["CPU: Intel Core i7-12700H", "RAM: 16 GB", "SSD: 1 TB", "Màn hình: 15.6\" FHD 144Hz", "GPU: NVIDIA RTX 3060"],
-      };
-      const specs = specMap[product.brand] || ["Thông tin đang cập nhật..."];
+        // Specs mock data based on brand
+        const specMap = {
+          apple: [
+            "CPU: Apple M2",
+            "RAM: 8 GB",
+            "SSD: 256 GB",
+            'Màn hình: 13.6" Retina',
+            "Pin: 18 giờ",
+          ],
+          asus: [
+            "CPU: Intel Core i7",
+            "RAM: 16 GB",
+            "SSD: 512 GB",
+            'Màn hình: 15.6" FHD 144Hz',
+            "GPU: NVIDIA RTX 3060",
+          ],
+          lenovo: [
+            "CPU: AMD Ryzen 7",
+            "RAM: 16 GB",
+            "SSD: 512 GB",
+            'Màn hình: 16" WQXGA 165Hz',
+            "GPU: NVIDIA RTX 3070 Ti",
+          ],
+          acer: [
+            "CPU: Intel Core i7",
+            "RAM: 16 GB",
+            "SSD: 512 GB",
+            'Màn hình: 15.6" FHD 144Hz',
+            "GPU: NVIDIA RTX 3060 Ti",
+          ],
+          msi: [
+            "CPU: Intel Core i7-12700H",
+            "RAM: 16 GB",
+            "SSD: 1 TB",
+            'Màn hình: 15.6" FHD 144Hz',
+            "GPU: NVIDIA RTX 3060",
+          ],
+        };
+        const specs = specMap[product.brand] || ["Thông tin đang cập nhật..."];
 
-      const specItems = specs
-        .map((s) => `<li><i class="bi bi-check-circle-fill me-2"></i>${s}</li>`)
-        .join("");
+        const specItems = specs
+          .map(
+            (s) => `<li><i class="bi bi-check-circle-fill me-2"></i>${s}</li>`,
+          )
+          .join("");
 
-      container.innerHTML = `
+        container.innerHTML = `
           <div class="row g-5 align-items-start">
             <!-- Image -->
             <div class="col-md-5">
@@ -232,64 +284,71 @@
           </div>
         `;
 
-      // Helper functions for content generation
-      function generateDescription(brand) {
-        const descs = {
-          apple: "Trải nghiệm sức mạnh đỉnh cao với MacBook chip M2. Thiết kế mỏng nhẹ tinh tế, màn hình Retina sống động cùng thời lượng pin lên đến 18 giờ. Đây là sự lựa chọn hoàn hảo cho những người yêu thích sự sang trọng và hiệu năng ổn định.",
-          asus: "Dòng laptop chuyên game và đồ họa với hệ thống tản nhiệt tiên tiến. Trang bị card đồ họa RTX mạnh mẽ, màn hình tần số quét cao mang lại trải nghiệm mượt mà trong từng khung hình. Thiết kế hầm hố, cá tính.",
-          lenovo: "Sự cân bằng hoàn hảo giữa hiệu năng và độ bền. Phù hợp cho cả công việc văn phòng cao cấp lẫn nhu cầu giải trí đa phương tiện. Màn hình độ phân giải cao, bàn phím gõ sướng tay danh tiếng của Lenovo.",
-          acer: "Hiệu năng vượt trội trong tầm giá. Laptop Acer mang đến cấu hình mạnh mẽ, thiết kế hiện đại, trẻ trung. Một người bạn đồng hành tin cậy cho học tập và làm việc cường độ cao.",
-          msi: "Đỉnh cao laptop gaming với DNA của rồng. MSI tập trung tối đa vào hiệu suất phần cứng và khả năng tối ưu hóa phần mềm. Đây là vũ khí lợi hại cho mọi game thủ chuyên nghiệp.",
-        };
-        return descs[brand.toLowerCase()] || "Sản phẩm chính hãng với hiệu năng ổn định, thiết kế bền bỉ, đáp ứng tốt mọi nhu cầu học tập và làm việc.";
-      }
-
-      function generateSpecTable(specs) {
-        return specs.map(s => {
-          const parts = s.split(':');
-          if (parts.length < 2) return `<tr><td colspan="2">${s}</td></tr>`;
-          return `<tr><td>${parts[0].trim()}</td><td>${parts[1].trim()}</td></tr>`;
-        }).join('');
-      }
-
-      // Tab switching logic
-      window.switchTab = function(tabId) {
-        // Update items
-        document.querySelectorAll('.tab-item').forEach(item => {
-          item.classList.remove('active');
-          if (item.getAttribute('onclick').includes(tabId)) {
-            item.classList.add('active');
-          }
-        });
-        // Update panes
-        document.querySelectorAll('.tab-pane').forEach(pane => {
-          pane.classList.remove('active');
-        });
-        document.getElementById(tabId).classList.add('active');
-      };
-
-      // ── Related products ──────────────────────
-      const related = products
-        .filter((p) => p.brand === product.brand && p.id !== product.id)
-        .slice(0, 4);
-
-      if (related.length > 0) {
-        document.getElementById("related-section").style.display = "block";
-
-        // Link "Xem tất cả" to the current brand
-        const viewAllBtn = document.getElementById("view-all-related");
-        if (viewAllBtn) {
-          viewAllBtn.href = `products.html?brand=${product.brand}`;
+        // Helper functions for content generation
+        function generateDescription(brand) {
+          const descs = {
+            apple:
+              "Trải nghiệm sức mạnh đỉnh cao với MacBook chip M2. Thiết kế mỏng nhẹ tinh tế, màn hình Retina sống động cùng thời lượng pin lên đến 18 giờ. Đây là sự lựa chọn hoàn hảo cho những người yêu thích sự sang trọng và hiệu năng ổn định.",
+            asus: "Dòng laptop chuyên game và đồ họa với hệ thống tản nhiệt tiên tiến. Trang bị card đồ họa RTX mạnh mẽ, màn hình tần số quét cao mang lại trải nghiệm mượt mà trong từng khung hình. Thiết kế hầm hố, cá tính.",
+            lenovo:
+              "Sự cân bằng hoàn hảo giữa hiệu năng và độ bền. Phù hợp cho cả công việc văn phòng cao cấp lẫn nhu cầu giải trí đa phương tiện. Màn hình độ phân giải cao, bàn phím gõ sướng tay danh tiếng của Lenovo.",
+            acer: "Hiệu năng vượt trội trong tầm giá. Laptop Acer mang đến cấu hình mạnh mẽ, thiết kế hiện đại, trẻ trung. Một người bạn đồng hành tin cậy cho học tập và làm việc cường độ cao.",
+            msi: "Đỉnh cao laptop gaming với DNA của rồng. MSI tập trung tối đa vào hiệu suất phần cứng và khả năng tối ưu hóa phần mềm. Đây là vũ khí lợi hại cho mọi game thủ chuyên nghiệp.",
+          };
+          return (
+            descs[brand.toLowerCase()] ||
+            "Sản phẩm chính hãng với hiệu năng ổn định, thiết kế bền bỉ, đáp ứng tốt mọi nhu cầu học tập và làm việc."
+          );
         }
 
-        document.getElementById("related-list").innerHTML = related
-          .map(
-            (p) => `
+        function generateSpecTable(specs) {
+          return specs
+            .map((s) => {
+              const parts = s.split(":");
+              if (parts.length < 2) return `<tr><td colspan="2">${s}</td></tr>`;
+              return `<tr><td>${parts[0].trim()}</td><td>${parts[1].trim()}</td></tr>`;
+            })
+            .join("");
+        }
+
+        // Tab switching logic
+        window.switchTab = function (tabId) {
+          // Update items
+          document.querySelectorAll(".tab-item").forEach((item) => {
+            item.classList.remove("active");
+            if (item.getAttribute("onclick").includes(tabId)) {
+              item.classList.add("active");
+            }
+          });
+          // Update panes
+          document.querySelectorAll(".tab-pane").forEach((pane) => {
+            pane.classList.remove("active");
+          });
+          document.getElementById(tabId).classList.add("active");
+        };
+
+        // ── Related products ──────────────────────
+        const related = products
+          .filter((p) => p.brand === product.brand && p.id !== product.id)
+          .slice(0, 4);
+
+        if (related.length > 0) {
+          document.getElementById("related-section").style.display = "block";
+
+          // Link "Xem tất cả" to the current brand
+          const viewAllBtn = document.getElementById("view-all-related");
+          if (viewAllBtn) {
+            viewAllBtn.href = `products.html?brand=${product.brand}`;
+          }
+
+          document.getElementById("related-list").innerHTML = related
+            .map(
+              (p) => `
             <div class="col-6 col-md-3">
               <div class="card-wrapper mb-4">
                 <div class="card">
                   <div class="card-img-wrapper">
-                    <img src="${p.image.replace('../', '')}">
+                    <img src="${p.image.replace("../", "")}">
                     <div class="card-overlay">
                       <a href="product-details.html?id=${p.id}" class="btn-view">
                         <i class="bi bi-eye"></i> Xem chi tiết
@@ -304,31 +363,30 @@
                   </div>
                 </div>
               </div>
-            </div>`
-          )
-          .join("");
+            </div>`,
+            )
+            .join("");
+        }
       }
-    }
 
-    // ─── Quantity helpers ─────────────────────
-    function changeDetailQty(delta) {
-      const input = document.getElementById("detail-qty");
-      if (!input) return;
-      let val = parseInt(input.value) + delta;
-      if (val < 1) val = 1;
-      input.value = val;
-    }
+      // ─── Quantity helpers ─────────────────────
+      function changeDetailQty(delta) {
+        const input = document.getElementById("detail-qty");
+        if (!input) return;
+        let val = parseInt(input.value) + delta;
+        if (val < 1) val = 1;
+        input.value = val;
+      }
 
-    function addToCartDetail(id) {
-      const qty = parseInt(document.getElementById("detail-qty").value) || 1;
-      for (let i = 0; i < qty; i++) addToCart(id);
-    }
+      function addToCartDetail(id) {
+        const qty = parseInt(document.getElementById("detail-qty").value) || 1;
+        for (let i = 0; i < qty; i++) addToCart(id);
+      }
 
-    function buyNow(id) {
-      addToCartDetail(id);
-      window.location.href = "cart.html";
-    }
-  </script>
-</body>
-
+      function buyNow(id) {
+        addToCartDetail(id);
+        window.location.href = "cart.html";
+      }
+    </script>
+  </body>
 </html>
